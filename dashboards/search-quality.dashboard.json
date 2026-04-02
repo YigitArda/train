@@ -1,0 +1,24 @@
+{
+  "title": "Search Quality & Reliability",
+  "description": "City selection and provider fallback health metrics for production.",
+  "widgets": [
+    {
+      "title": "City Select Success Rate",
+      "metric": "city_select_success_rate",
+      "visualization": "timeseries",
+      "target": ">= 0.98"
+    },
+    {
+      "title": "Autocomplete Latency p95",
+      "metric": "autocomplete_latency_p95",
+      "visualization": "timeseries",
+      "target": "<= 250ms"
+    },
+    {
+      "title": "Search Provider Fallback Rate",
+      "metric": "search_provider_fallback_rate",
+      "visualization": "timeseries",
+      "target": "<= 0.05"
+    }
+  ]
+}
