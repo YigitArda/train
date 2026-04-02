@@ -1,5 +1,11 @@
 import React from 'react';
 
+export interface JourneyCity {
+  city_id: string;
+  display_name: string;
+  country_code: string;
+}
+
 export interface JourneyResult {
   id: string;
   title: string;
@@ -8,13 +14,15 @@ export interface JourneyResult {
   operatorMix: string;
   transferStation: string;
   fareConditions: string;
+  transferCity?: JourneyCity | null;
 }
 
 interface ResultCardProps {
   result: JourneyResult;
+  transferStationLabel?: string;
 }
 
-export function ResultCard({ result }: ResultCardProps) {
+export function ResultCard({ result, transferStationLabel }: ResultCardProps) {
   return (
     <article aria-label={`Result ${result.id}`}>
       <h3>{result.title}</h3>
@@ -26,7 +34,7 @@ export function ResultCard({ result }: ResultCardProps) {
         <dd>{result.operatorMix}</dd>
 
         <dt>Transfer station</dt>
-        <dd>{result.transferStation}</dd>
+        <dd>{transferStationLabel ?? result.transferStation}</dd>
 
         <dt>Fare conditions</dt>
         <dd>{result.fareConditions}</dd>

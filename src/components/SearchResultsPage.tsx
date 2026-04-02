@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { ResultCard, JourneyResult } from './ResultCard';
 import { SearchFilters, SearchFiltersValue } from './SearchFilters';
+import { buildCityCountryLabelIndex } from '../domain/cities/uiLabels.js';
 
 interface SearchResultsPageProps {
   operators: string[];
@@ -38,6 +39,14 @@ export function SearchResultsPage({
     });
   }, [filters, results]);
 
+  const transferCityLabelMap = useMemo(() => {
+    const transferCities = filteredResults
+      .map((result) => result.transferCity)
+      .filter((city): city is NonNullable<JourneyResult['transferCity']> => Boolean(city));
+
+    return buildCityCountryLabelIndex(transferCities);
+  }, [filteredResults]);
+
   return (
     <main>
       {/* Existing search area can stay where it is; this keeps results page structure intact. */}
@@ -50,7 +59,13 @@ export function SearchResultsPage({
 
       <section aria-label="Journey search results">
         {filteredResults.map((result) => (
-          <ResultCard key={result.id} result={result} />
+          <ResultCard
+            key={result.id}
+            result={result}
+            transferStationLabel={
+              result.transferCity ? transferCityLabelMap.get(result.transferCity.city_id) : undefined
+            }
+          />
         ))}
       </section>
     </main>
