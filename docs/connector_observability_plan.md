@@ -94,3 +94,11 @@ GROUP BY 1, 2;
 3. `changed_dom` alarmını warning/critical eşikleri ile yayınla.
 4. Günlük smoke + haftalık audit scheduler'larını CI'ya bağla.
 5. Dashboard coverage KPI'larını canlıya al ve owner'ları etiketle.
+
+## Search deneyimi dashboard metrikleri
+
+Production dashboard'ına aşağıdaki metrikler eklendi (`dashboards/search-quality.dashboard.json`):
+
+- `city_select_success_rate`
+- `autocomplete_latency_p95`
+- `search_provider_fallback_rate`
