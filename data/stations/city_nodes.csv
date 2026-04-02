@@ -1,0 +1,4 @@
+city_node,city_name,country_code,member_station_ids
+city_paris,Paris,FR,"st_paris_gare_du_nord|st_paris_gare_de_lyon|st_paris_montparnasse"
+city_london,London,GB,"st_london_st_pancras|st_london_kings_cross|st_london_euston"
+city_berlin,Berlin,DE,"st_berlin_hbf|st_berlin_suedkreuz|st_berlin_ostbahnhof"

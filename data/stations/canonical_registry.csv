@@ -1,0 +1,10 @@
+station_id,uic,country_code,name,city_node,latitude,longitude,aliases
+st_paris_gare_du_nord,8727100,FR,Paris Gare du Nord,city_paris,48.8809,2.3553,"Paris Nord|Gare du Nord|Paris GDN"
+st_paris_gare_de_lyon,8772200,FR,Paris Gare de Lyon,city_paris,48.8443,2.3730,"Gare de Lyon|Paris Lyon"
+st_paris_montparnasse,8739100,FR,Paris Montparnasse,city_paris,48.8402,2.3204,"Paris Montparnasse|Gare Montparnasse"
+st_london_st_pancras,7005460,GB,London St Pancras International,city_london,51.5314,-0.1261,"St Pancras|London St Pancras|St Pancras International"
+st_london_kings_cross,7006190,GB,London King's Cross,city_london,51.5308,-0.1238,"Kings Cross|London Kings Cross|King's Cross"
+st_london_euston,7000100,GB,London Euston,city_london,51.5282,-0.1337,"Euston|London Euston"
+st_berlin_hbf,8011160,DE,Berlin Hbf,city_berlin,52.5251,13.3694,"Berlin Hauptbahnhof|Berlin Central|Hauptbahnhof"
+st_berlin_suedkreuz,8011113,DE,Berlin Südkreuz,city_berlin,52.4751,13.3652,"Berlin Sudkreuz|Suedkreuz"
+st_berlin_ostbahnhof,8010255,DE,Berlin Ostbahnhof,city_berlin,52.5105,13.4346,"Berlin East Station|Ostbahnhof"
