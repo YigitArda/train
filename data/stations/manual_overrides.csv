@@ -1,0 +1,4 @@
+source_name,source_country,canonical_station_id,reason
+Paris Nord,FR,st_paris_gare_du_nord,Known abbreviation
+Londres St Pancras,GB,st_london_st_pancras,Localized French naming
+Berlin Central Station,DE,st_berlin_hbf,Legacy provider label
