@@ -1,7 +1,7 @@
 /**
  * Exponential backoff retry policy with optional jitter.
  */
-class RetryPolicy {
+export class RetryPolicy {
   constructor({
     maxAttempts = 5,
     baseDelayMs = 200,
@@ -57,7 +57,3 @@ class RetryPolicy {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
-
-module.exports = {
-  RetryPolicy,
-};

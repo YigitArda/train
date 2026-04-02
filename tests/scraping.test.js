@@ -1,9 +1,9 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
+import test from 'node:test';
+import assert from 'node:assert/strict';
 
-const { RetryPolicy } = require('../src/scraping/retry_policy');
-const { smokeTestConnectors } = require('../src/connectors/smoke_test');
-const { ConnectorRunner } = require('../src/scraping/connector_runner');
+import { RetryPolicy } from '../src/scraping/retry_policy.js';
+import { smokeTestConnectors } from '../src/connectors/smoke_test.js';
+import { ConnectorRunner } from '../src/scraping/connector_runner.js';
 
 test('RetryPolicy computes jittered delay within band', () => {
   const policy = new RetryPolicy({ baseDelayMs: 100, jitterRatio: 0.2, multiplier: 2 });

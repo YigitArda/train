@@ -16,3 +16,17 @@ python3 src/station_normalize.py
 ```
 
 `normalize_search_results`, tüm ham sonuçlara `canonical_station_id` ve `canonical_city_node` alanlarını ekler.
+
+## Front-end demo çalıştırma
+
+```bash
+npm run dev
+```
+
+Tarayıcıda `http://localhost:5173` aç.
+
+## Tüm kontroller
+
+```bash
+npm run check
+```
