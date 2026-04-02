@@ -1,4 +1,4 @@
-class TokenBucketRateLimiter {
+export class TokenBucketRateLimiter {
   constructor({ capacity = 20, refillPerSecond = 10 } = {}) {
     this.capacity = capacity;
     this.tokens = capacity;
@@ -28,7 +28,7 @@ class TokenBucketRateLimiter {
   }
 }
 
-class CircuitBreaker {
+export class CircuitBreaker {
   constructor({
     failureThreshold = 5,
     recoveryTimeoutMs = 30_000,
@@ -105,7 +105,7 @@ class CircuitBreaker {
   }
 }
 
-class RotationPool {
+export class RotationPool {
   constructor(items = []) {
     this.items = [...items];
     this.cursor = 0;
@@ -122,7 +122,7 @@ class RotationPool {
   }
 }
 
-class AsyncJobQueue {
+export class AsyncJobQueue {
   constructor({ concurrency = 4 } = {}) {
     this.concurrency = concurrency;
     this.running = 0;
@@ -152,10 +152,3 @@ class AsyncJobQueue {
     }
   }
 }
-
-module.exports = {
-  AsyncJobQueue,
-  CircuitBreaker,
-  RotationPool,
-  TokenBucketRateLimiter,
-};

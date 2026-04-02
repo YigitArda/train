@@ -1,12 +1,12 @@
-const {
+import {
   AsyncJobQueue,
   CircuitBreaker,
   RotationPool,
   TokenBucketRateLimiter,
-} = require('./network_controls');
-const { HybridScraper } = require('./hybrid_scraper');
+} from './network_controls.js';
+import { HybridScraper } from './hybrid_scraper.js';
 
-class ConnectorRunner {
+export class ConnectorRunner {
   constructor({
     connectors = [],
     proxies = [],
@@ -65,7 +65,3 @@ class ConnectorRunner {
     };
   }
 }
-
-module.exports = {
-  ConnectorRunner,
-};

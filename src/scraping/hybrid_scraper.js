@@ -1,6 +1,6 @@
-const { RetryPolicy } = require('./retry_policy');
+import { RetryPolicy } from './retry_policy.js';
 
-class HybridScraper {
+export class HybridScraper {
   constructor({ retryPolicy = new RetryPolicy() } = {}) {
     this.retryPolicy = retryPolicy;
   }
@@ -26,19 +26,22 @@ class HybridScraper {
   _selectorsBroken(html = '', selectors = []) {
     if (!selectors || selectors.length === 0) return false;
 
-    // lightweight fallback check for css-id/class/tag hints
     return selectors.some((selector) => {
       if (selector.startsWith('#')) {
-        return !html.includes(`id="${selector.slice(1)}"`) && !html.includes(`id='${selector.slice(1)}'`);
+        return (
+          !html.includes(`id="${selector.slice(1)}"`) &&
+          !html.includes(`id='${selector.slice(1)}'`)
+        );
       }
+
       if (selector.startsWith('.')) {
-        return !html.includes(`class="${selector.slice(1)}`) && !html.includes(`class='${selector.slice(1)}`);
+        return (
+          !html.includes(`class="${selector.slice(1)}`) &&
+          !html.includes(`class='${selector.slice(1)}`)
+        );
       }
+
       return !html.includes(`<${selector}`);
     });
   }
 }
-
-module.exports = {
-  HybridScraper,
-};
