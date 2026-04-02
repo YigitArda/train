@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrainScanner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">TrainScanner</div>
+      <nav>
+        <a href="#">Rotalar</a>
+        <a href="#">Fiyat Takvimi</a>
+        <a href="#">Yardım</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="search-card">
+        <h1>Avrupa Tren Biletlerini Karşılaştır</h1>
+        <p>Flixscanner hissiyle, tren için optimize edilmiş arama deneyimi.</p>
+
+        <form id="search-form" class="search-grid">
+          <input id="from" placeholder="Nereden? (örn. Paris)" required />
+          <input id="to" placeholder="Nereye? (örn. Amsterdam)" required />
+          <input id="date" type="date" required />
+          <select id="sortBy">
+            <option value="price">En ucuz</option>
+            <option value="duration">En hızlı</option>
+          </select>
+          <button type="submit">Seferleri Bul</button>
+        </form>
+      </section>
+
+      <section class="results-header">
+        <h2>Sonuçlar</h2>
+        <span id="meta"></span>
+      </section>
+
+      <section id="results" class="results"></section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
