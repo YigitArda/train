@@ -1,7 +1,19 @@
 import { MockRailConnector } from './connectors/mockRailConnector.js';
 import { sortTrips } from './core/searchEngine.js';
 
-const CITIES = ['İstanbul', 'Ankara', 'Eskişehir', 'Paris', 'Londra', 'Berlin', 'Amsterdam'];
+const ALL_CITIES = [
+  'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Aksaray', 'Amasya', 'Ankara', 'Antalya',
+  'Ardahan', 'Artvin', 'Aydın', 'Balıkesir', 'Bartın', 'Batman', 'Bayburt', 'Bilecik',
+  'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale', 'Çankırı', 'Çorum',
+  'Denizli', 'Diyarbakır', 'Düzce', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir',
+  'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkâri', 'Hatay', 'Iğdır', 'Isparta', 'İstanbul',
+  'İzmir', 'Kahramanmaraş', 'Karabük', 'Karaman', 'Kars', 'Kastamonu', 'Kayseri', 'Kırıkkale',
+  'Kırklareli', 'Kırşehir', 'Kilis', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa',
+  'Mardin', 'Mersin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Osmaniye',
+  'Rize', 'Sakarya', 'Samsun', 'Şanlıurfa', 'Siirt', 'Sinop', 'Sivas', 'Şırnak',
+  'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Uşak', 'Van', 'Yalova', 'Yozgat', 'Zonguldak',
+  'Paris', 'Londra', 'Berlin', 'Amsterdam'
+];
 
 const connector = new MockRailConnector();
 
@@ -13,9 +25,16 @@ const sortNode = document.getElementById('sortBy');
 const metaNode = document.getElementById('meta');
 const resultsNode = document.getElementById('results');
 
-dateNode.valueAsDate = new Date();
-fromNode.value = 'İstanbul';
-toNode.value = 'Ankara';
+function fillCityOptions() {
+  const baseOptions = ['<option value="">Şehir seç</option>'];
+  const cityOptions = ALL_CITIES.map((city) => `<option value="${city}">${city}</option>`);
+
+  fromNode.innerHTML = [...baseOptions, ...cityOptions].join('');
+  toNode.innerHTML = [...baseOptions, ...cityOptions].join('');
+
+  fromNode.value = 'İstanbul';
+  toNode.value = 'Ankara';
+}
 
 function formatTime(value) {
   return new Date(value).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
@@ -42,7 +61,7 @@ function renderTrips(trips) {
   resultsNode.innerHTML = trips
     .map(
       (trip, index) => `
-        <a class="card" href="${trip.bookingUrl}" target="_blank" rel="noopener noreferrer">
+        <a class="card" href="${trip.bookingUrl}" rel="noopener noreferrer">
           <div>
             <div class="route">${trip.from} → ${trip.to}</div>
             <div class="meta">${formatTime(trip.departure)} - ${formatTime(trip.arrival)} · ${trip.operator}</div>
@@ -82,6 +101,9 @@ async function search() {
   metaNode.textContent = `${trips.length} sefer bulundu`;
   renderTrips(trips);
 }
+
+dateNode.valueAsDate = new Date();
+fillCityOptions();
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();

@@ -33,6 +33,26 @@ function toPriceEur(amount, currency) {
   return currency === 'EUR' ? amount : Number((amount / TRY_PER_EUR).toFixed(2));
 }
 
+function buildFallbackBookingUrl(from, to, date) {
+  return `https://www.rome2rio.com/map/${encodeURIComponent(from)}/${encodeURIComponent(to)}?date=${encodeURIComponent(date)}`;
+}
+
+function buildFallbackTrips(request) {
+  return [
+    trip(
+      `GEN-${request.from}-${request.to}-1`,
+      '08:00:00',
+      '12:00:00',
+      240,
+      1,
+      'Global Rail Search',
+      999,
+      'TRY',
+      buildFallbackBookingUrl(request.from, request.to, request.date)
+    ),
+  ];
+}
+
 function toTrip(template, request) {
   return {
     id: template.id,
@@ -59,6 +79,8 @@ export class MockRailConnector extends BaseConnector {
     const forward = ROUTES[routeKey(request.from, request.to)] ?? [];
     const reverse = ROUTES[routeKey(request.to, request.from)] ?? [];
     const routeTrips = forward.length ? forward : reverse;
-    return routeTrips.map((item) => toTrip(item, request));
+    const trips = routeTrips.length ? routeTrips : buildFallbackTrips(request);
+
+    return trips.map((item) => toTrip(item, request));
   }
 }
