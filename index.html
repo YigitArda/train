@@ -19,10 +19,11 @@
     <main class="container">
       <section class="search-card">
         <h1>Tren Biletlerini Karşılaştır</h1>
-        <p>Şehir seç, gerçek bilet sitesine tek tıkla geç.</p>
+        <p>Şehir seç, seferleri gör, resmi bilet sitesine geç.</p>
 
         <form id="search-form" class="search-grid">
           <select id="from" required>
+            <option value="">Nereden?</option>
             <option value="İstanbul">İstanbul</option>
             <option value="Ankara">Ankara</option>
             <option value="Eskişehir">Eskişehir</option>
@@ -33,6 +34,7 @@
           </select>
 
           <select id="to" required>
+            <option value="">Nereye?</option>
             <option value="Ankara">Ankara</option>
             <option value="İstanbul">İstanbul</option>
             <option value="Eskişehir">Eskişehir</option>
@@ -43,12 +45,10 @@
           </select>
 
           <input id="date" type="date" required />
-
           <select id="sortBy">
             <option value="price">En ucuz</option>
             <option value="duration">En hızlı</option>
           </select>
-
           <button type="submit">Seferleri Bul</button>
         </form>
       </section>
