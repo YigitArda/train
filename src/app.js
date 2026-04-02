@@ -1,6 +1,8 @@
 import { MockRailConnector } from './connectors/mockRailConnector.js';
 import { sortTrips } from './core/searchEngine.js';
 
+const CITIES = ['İstanbul', 'Ankara', 'Eskişehir', 'Paris', 'Londra', 'Berlin', 'Amsterdam'];
+
 const connector = new MockRailConnector();
 
 const form = document.getElementById('search-form');
