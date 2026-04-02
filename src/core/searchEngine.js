@@ -1,16 +1,6 @@
-function getComparablePrice(trip) {
-  if (Number.isFinite(trip.priceEur)) {
-    return trip.priceEur;
-  }
-
-  if (Number.isFinite(trip.price)) {
-    return trip.price;
-  }
-
-  if (Number.isFinite(trip.priceTry)) {
-    return trip.priceTry;
-  }
-
+function priceForSort(trip) {
+  if (Number.isFinite(trip.priceEur)) return trip.priceEur;
+  if (Number.isFinite(trip.priceAmount)) return trip.priceAmount;
   return Number.POSITIVE_INFINITY;
 }
 
@@ -19,5 +9,5 @@ export function sortTrips(trips, sortBy) {
     return [...trips].sort((a, b) => a.durationMin - b.durationMin);
   }
 
-  return [...trips].sort((a, b) => getComparablePrice(a) - getComparablePrice(b));
+  return [...trips].sort((a, b) => priceForSort(a) - priceForSort(b));
 }

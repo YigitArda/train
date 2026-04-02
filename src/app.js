@@ -1,62 +1,47 @@
 import { MockRailConnector } from './connectors/mockRailConnector.js';
 import { sortTrips } from './core/searchEngine.js';
 
-const CITIES = ['İstanbul', 'Ankara', 'Eskişehir', 'Paris', 'Londra', 'Berlin', 'Amsterdam'];
-
 const connector = new MockRailConnector();
+
 const form = document.getElementById('search-form');
 const resultsNode = document.getElementById('results');
 const metaNode = document.getElementById('meta');
 const fromNode = document.getElementById('from');
 const toNode = document.getElementById('to');
 const dateNode = document.getElementById('date');
+const sortNode = document.getElementById('sortBy');
 
 dateNode.valueAsDate = new Date();
 
-function formatPrice(trip) {
-  const formatter = new Intl.NumberFormat('tr-TR', {
-    style: 'currency',
-    currency: trip.currency,
-    maximumFractionDigits: 0,
-  });
-
-  return formatter.format(trip.price);
-}
-
-function populateCities() {
-  CITIES.forEach((city) => {
-    const fromOption = document.createElement('option');
-    fromOption.value = city;
-    fromOption.textContent = city;
-
-    const toOption = document.createElement('option');
-    toOption.value = city;
-    toOption.textContent = city;
-
-    fromNode.appendChild(fromOption);
-    toNode.appendChild(toOption);
-  });
-
-  fromNode.value = 'İstanbul';
-  toNode.value = 'Ankara';
-}
-
-function toHHMM(value) {
-  return new Date(value).toLocaleTimeString('tr-TR', {
+function toHHMM(datetimeValue) {
+  return new Date(datetimeValue).toLocaleTimeString('tr-TR', {
     hour: '2-digit',
     minute: '2-digit',
   });
 }
 
-function render(trips) {
+function formatPrice(trip) {
+  return new Intl.NumberFormat('tr-TR', {
+    style: 'currency',
+    currency: trip.priceCurrency,
+    maximumFractionDigits: 0,
+  }).format(trip.priceAmount);
+}
+
+function renderEmpty(message) {
+  resultsNode.innerHTML = `<p>${message}</p>`;
+}
+
+function renderTrips(trips) {
   if (!trips.length) {
-    resultsNode.innerHTML = '<p>Bu şehir çifti için doğrulanmış bilet bulunamadı.</p>';
+    renderEmpty('Bu rota için doğrulanmış bilet bulunamadı.');
     return;
   }
 
   resultsNode.innerHTML = trips
     .map((trip, index) => {
-      const tag = index === 0 ? '<span class="badge">Önerilen</span>' : '';
+      const recommended = index === 0 ? '<span class="badge">Önerilen</span>' : '';
+
       return `
         <a class="card" href="${trip.bookingUrl}" target="_blank" rel="noopener noreferrer">
           <div>
@@ -67,9 +52,10 @@ function render(trips) {
           <div class="meta">Aktarma: ${trip.transfers}</div>
           <div>
             <div class="price">${formatPrice(trip)}</div>
-            ${tag}
+            ${recommended}
           </div>
-        </a>`;
+        </a>
+      `;
     })
     .join('');
 }
@@ -82,17 +68,16 @@ async function runSearch() {
   };
 
   if (request.from === request.to) {
-    metaNode.textContent = 'Lütfen farklı iki şehir seçin';
-    render([]);
+    metaNode.textContent = 'Lütfen farklı iki şehir seç.';
+    renderEmpty('Aynı şehirden aynı şehre bilet gösterilemiyor.');
     return;
   }
 
-  const sortBy = document.getElementById('sortBy').value;
   const rawTrips = await connector.searchTrips(request);
-  const trips = sortTrips(rawTrips, sortBy);
+  const sortedTrips = sortTrips(rawTrips, sortNode.value);
 
-  metaNode.textContent = `${trips.length} doğrulanmış sefer bulundu`;
-  render(trips);
+  metaNode.textContent = `${sortedTrips.length} doğrulanmış sefer bulundu`;
+  renderTrips(sortedTrips);
 }
 
 form.addEventListener('submit', async (event) => {
@@ -100,5 +85,4 @@ form.addEventListener('submit', async (event) => {
   await runSearch();
 });
 
-populateCities();
 runSearch();
